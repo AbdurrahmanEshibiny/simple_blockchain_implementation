@@ -107,10 +107,31 @@ class Blockchain:
 		elif(len(block.children) == 1):
 			output += self.print_chain(block.children[0])
 			return output
-		# else:
-		# 	branches = {}
-		# 	for i in range(len(block.children)):
-				
+		else:
+			branches = {}
+			for i in range(len(block.children)):
+				key = 'Branch ' + str(i)
+				branches[key] = self.print_chain(block.children[i])
+			output += branches
+			return output
+			# TODO branching blocks not  tested yet, need to implement the attack simulation
+
+	
+	def simulate_attack(self):
+		branch_block = self.last_block
+		branch_block.children.append(
+			Block(
+				self.last_block.data['index'] + 1,
+				0,
+				self.hash(self.last_block)))
+		self.proof_of_work(self.last_block.children[0])
+		last_good_block = branch_block.children[0]
+		branch_block.children.append(
+			Block(
+				self.last_block.data['index'] + 1,
+				0,
+				self.hash(self.last_block)))
+		last_attack_block = branch_block.children[1]
 
 
 
