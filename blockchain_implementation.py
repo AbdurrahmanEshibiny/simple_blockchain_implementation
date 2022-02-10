@@ -31,8 +31,8 @@ class Blockchain:
 
 		# Find the appropriate number of hash zeros
 		print("Calculating appropriate puzzle complexity for this hardware...")
-		# self.num_zeros = self.calc_zeros()
-		self.num_zeros = 4 #for trial purposes only TODO change this shit
+		self.num_zeros = self.calc_zeros()
+		# self.num_zeros = 4 #for trial purposes only TODO change this shit
 		print("Determined complexity is", self.num_zeros, "zeros for successful hash mine")
 	
 
@@ -139,6 +139,12 @@ class Blockchain:
 			if(self.attempt_hash(attack_block)): 
 				attacker_success = True
 				break
+			if(self.attempt_hash(attack_block)): 
+				attacker_success = True
+				break
+			if(self.attempt_hash(good_block)): 
+				good_success = True
+				break
 			if(self.attempt_hash(good_block)): 
 				good_success = True
 				break
@@ -218,9 +224,14 @@ if __name__ == '__main__':
 	while(True):
 		command = input("Please enter commend(add/simulate attack/print/exit):")
 		if(command == 'add'):
+			print("Block mined successfully")
 			bc.add_block()
 		elif(command == 'simulate attack'):
-			bc.simulate_attack()
+			success = bc.simulate_attack()
+			if(success):
+				print("Attack done successfully")
+			else:
+				print("Attack attempted but failed")
 		elif(command == 'print'):
 			print(json.dumps({'Blockchain': bc.print_chain(bc.first_block)}, indent=4))
 		elif(command == 'exit'):
