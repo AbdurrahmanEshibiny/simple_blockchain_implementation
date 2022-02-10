@@ -222,7 +222,7 @@ if __name__ == '__main__':
 	# print(json.dumps({'Blockchain': bc.print_chain(bc.first_block)}, indent=4))
 	# if(attack_success): print("Attack successful")
 	while(True):
-		command = input("Please enter commend(add/simulate attack/print/exit):")
+		command = input("Please enter command(add/simulate attack/print/exit):")
 		if(command == 'add'):
 			print("Block mined successfully")
 			bc.add_block()
